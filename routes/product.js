@@ -12,16 +12,6 @@ const upload = multer({
     } else {
       cb(null, false);
     }
-
-    // The function should call `cb` with a boolean
-    // to indicate if the file should be accepted
-
-    // To reject this file pass `false`, like so:
-
-    // To accept the file pass `true`, like so:
-
-    // You can always pass an error if something goes wrong:
-    // cb(new Error('I don\'t have a clue!'))
   },
 });
 
@@ -39,6 +29,10 @@ router.post('/', upload.single('image'), async (req, res) => {
     return res.send({ error: isError.error.details[0].message });
   }
   try {
+    const duplicate = await Product.findOne({ title: req.body.title });
+    if (duplicate) {
+      return res.send('Dublicate title found');
+    }
     const product = new Product(req.body);
     const savedProduct = await product.save();
     res.send(savedProduct);
