@@ -1,14 +1,10 @@
-
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/bin
-.DS_Store
+# NodeJS specific #
+.nyc_output/
+coverage/
+node_modules/
+npm-debug.log
+package-lock.json
+test/*.log
 .env
+bin/
 .git
-.env.local
